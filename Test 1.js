@@ -3,35 +3,31 @@ function solution (food_times, k)
     var answer = 0;
     var counter = k;
     var i = 0;
+    var zeroSet = new Set();
     while(counter > 0)
     {
-        if(food_times.every(checkEmpty))
-        {
-            return answer = -1;
-            break;
-        }
-
         if(food_times[i] > 0 )
         {
             food_times[i]--;
             counter--;
-            console.log(food_times);
+            if(food_times[i] == 0)
+            {
+                zeroSet.add(i);
+            }
         }
+
+        if(zeroSet.size == food_times.length)
+            return answer = -1;
+
         i++;
         if(i == food_times.length)
             i = 0;
-
-        if(food_times.every(checkEmpty))
-            {
-                return answer = -1;
-                break;
-            }
     }
     var findAnswer = true;
 
     while(findAnswer)
     {
-        if(food_times[i] > 0)
+        if(!zeroSet.has(i))
         {
             answer = i+1;
             findAnswer = false;
@@ -41,9 +37,6 @@ function solution (food_times, k)
         if(i == food_times.length)
             i = 0;
     }
-
-    
-
     return answer;
 }
 
@@ -54,6 +47,6 @@ function checkEmpty(food)
 
 var x = [3, 1, 2];
 
-var num = 6;
+var num = 1;
 
 console.log(solution(x, num));
